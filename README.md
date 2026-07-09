@@ -17,7 +17,9 @@ python scrape.py
 This will:
 1. Scrape all 63 pages of the IRS PDF directory
 2. Write a `catalog.csv` with every PDF's filename, URL, description, and category
-3. Download all PDFs into `pdfs/<category>/`
+3. Wipe the existing `pdfs/` directory and re-download every PDF into `pdfs/<category>/`
+
+> **Note:** Each run deletes all previously downloaded PDFs and downloads a fresh set, so the local files always match the current IRS directory.
 
 ## Output
 

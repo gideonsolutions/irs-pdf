@@ -4,6 +4,7 @@
 import csv
 import os
 import re
+import shutil
 import time
 
 import requests
@@ -91,11 +92,14 @@ def main():
     for cat, count in sorted(counts.items()):
         print(f"  {cat}: {count}")
 
+    # Wipe old downloads so we always end up with a fresh set
+    if os.path.isdir(OUTPUT_DIR):
+        print(f"\nWiping old downloads in {OUTPUT_DIR}/...")
+        shutil.rmtree(OUTPUT_DIR)
+
     # Download PDFs into categorized directories
     for i, entry in enumerate(all_entries, 1):
         dest = os.path.join(OUTPUT_DIR, entry["category"], entry["filename"])
-        if os.path.exists(dest):
-            continue
         print(f"[{i}/{len(all_entries)}] Downloading {entry['filename']}...")
         try:
             download_pdf(session, entry["url"], dest)
